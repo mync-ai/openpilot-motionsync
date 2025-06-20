@@ -12,10 +12,11 @@ handler.setFormatter(logging.Formatter('%(message)s'))
 carlog.addHandler(handler)
 
 # customize our logging
-rpi5log = logging.getLogger('rpi5log')
-# rpi5log.setLevel(?)
-rpi5log.propagate = False
+telemetry_log = logging.getLogger('telemetry_log')
+logging.addLevelName(25, "TELEMETRY");telemetry_log.setLevel("TELEMETRY")
+telemetry_log.propagate = False
 
-rpi5handler = logging.handlers.SocketHandler('172.20.10.14', 9999)
-rpi5handler.setFormatter(logging.Formatter('%(message)s'))
-rpi5log.addHandler(rpi5handler)
+# telemetry_handler = logging.handlers.SocketHandler('172.20.10.14', 9999)
+telemetry_handler = logging.FileHandler("telemetry.log", mode='a', encoding='utf-8', delay=False)
+telemetry_handler.setFormatter(logging.Formatter('%(message)s'))
+telemetry_log.addHandler(telemetry_handler)
